@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+--bg:#0a0a0f;
+--bg2:#111118;
+--bg3:#1a1a24;
+--accent:#7c6bff;
+--accent2:#3dd68c;
+--accent3:#ff6b6b;
+--text:#e8e6f0;
+--muted:#888899;
+--border:rgba(124,107,255,0.18);
+--mono:'Space Mono',monospace;
+--sans:'DM Sans',sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden;}
+
+/* Scanline overlay */
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:0;}
+
+.container{max-width:960px;margin:0 auto;padding:0 24px 80px;position:relative;z-index:1;}
+
+/* HERO */
+.hero{padding:80px 0 60px;display:grid;grid-template-columns:1fr auto;align-items:start;gap:40px;}
+.hero-tag{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.hero-tag::before{content:'';display:inline-block;width:24px;height:1px;background:var(--accent);}
+.hero h1{font-family:var(--mono);font-size:clamp(28px,5vw,48px);font-weight:700;line-height:1.1;letter-spacing:-0.02em;color:#fff;}
+.hero h1 .accent{color:var(--accent);}
+.hero-sub{font-size:15px;color:var(--muted);line-height:1.7;margin-top:20px;max-width:480px;font-weight:300;}
+.hero-sub strong{color:var(--text);font-weight:500;}
+.hero-badge{display:flex;flex-direction:column;gap:8px;align-items:flex-end;}
+.badge{font-family:var(--mono);font-size:10px;padding:6px 12px;border:1px solid var(--border);border-radius:3px;color:var(--muted);letter-spacing:0.08em;white-space:nowrap;}
+.badge.live{border-color:var(--accent2);color:var(--accent2);}
+.badge.live::before{content:'● ';font-size:8px;}
+
+/* DIVIDER */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border) 30%,var(--border) 70%,transparent);margin:40px 0;}
+
+/* SECTION LABEL */
+.sec-label{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:12px;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* ABOUT BLOCK */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:40px;}
+.about-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:20px;position:relative;overflow:hidden;}
+.about-card::before{content:attr(data-num);position:absolute;top:12px;right:14px;font-family:var(--mono);font-size:10px;color:rgba(124,107,255,0.2);font-weight:700;}
+.about-card h3{font-family:var(--mono);font-size:12px;color:var(--accent);margin-bottom:10px;letter-spacing:0.1em;}
+.about-card p{font-size:13px;color:var(--muted);line-height:1.65;}
+.about-card p strong{color:var(--text);}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:28px;margin-bottom:40px;}
+.timeline::before{content:'';position:absolute;left:6px;top:6px;bottom:6px;width:1px;background:linear-gradient(180deg,var(--accent),var(--accent2));}
+.tl-item{position:relative;margin-bottom:28px;}
+.tl-dot{position:absolute;left:-25px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);box-shadow:0 0 8px var(--accent);}
+.tl-dot.green{background:var(--accent2);box-shadow:0 0 8px var(--accent2);}
+.tl-meta{font-family:var(--mono);font-size:10px;color:var(--muted);margin-bottom:4px;}
+.tl-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:4px;}
+.tl-desc{font-size:12px;color:var(--muted);line-height:1.6;}
+
+/* PROJECT MAIN */
+.project-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:16px;}
+.project-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
+.project-header:hover{background:var(--bg3);}
+.project-title-row{display:flex;align-items:center;gap:12px;}
+.project-icon{width:36px;height:36px;border-radius:6px;background:rgba(124,107,255,0.12);border:1px solid rgba(124,107,255,0.25);display:flex;align-items:center;justify-content:center;font-size:16px;}
+.project-name{font-family:var(--mono);font-size:14px;font-weight:700;color:#fff;}
+.project-type{font-size:11px;color:var(--muted);margin-top:2px;}
+.expand-btn{font-family:var(--mono);font-size:11px;color:var(--accent);padding:4px 10px;border:1px solid var(--border);border-radius:3px;transition:all 0.2s;}
+.project-body{padding:24px;display:none;}
+.project-body.open{display:block;}
+
+/* SYSTEMS */
+.sys-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+.sys-item{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:16px;}
+.sys-item.full{grid-column:1/-1;}
+.sys-name{font-family:var(--mono);font-size:11px;color:var(--accent);margin-bottom:8px;letter-spacing:0.08em;}
+.sys-desc{font-size:12px;color:var(--muted);line-height:1.6;}
+.sys-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.tag{font-family:var(--mono);font-size:9px;padding:3px 8px;border-radius:2px;border:1px solid;letter-spacing:0.05em;}
+.tag-purple{border-color:rgba(124,107,255,0.4);color:#9d91ff;background:rgba(124,107,255,0.08);}
+.tag-green{border-color:rgba(61,214,140,0.4);color:#3dd68c;background:rgba(61,214,140,0.08);}
+.tag-red{border-color:rgba(255,107,107,0.4);color:#ff8f8f;background:rgba(255,107,107,0.08);}
+
+/* RESULTS */
+.result-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.result-list li{font-size:13px;color:var(--muted);padding-left:18px;position:relative;line-height:1.5;}
+.result-list li::before{content:'→';position:absolute;left:0;color:var(--accent2);font-family:var(--mono);}
+.result-list li strong{color:var(--text);}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:40px;}
+.skill-row{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;}
+.skill-cat{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;}
+.skill-items{display:flex;flex-wrap:wrap;gap:5px;}
+.skill-chip{font-size:11px;color:var(--text);font-weight:400;}
+.skill-chip+.skill-chip::before{content:'·';margin-right:5px;color:var(--border);}
+
+/* GOAL CARD */
+.goal-card{background:linear-gradient(135deg,rgba(124,107,255,0.08),rgba(61,214,140,0.05));border:1px solid rgba(124,107,255,0.25);border-radius:8px;padding:28px;margin-bottom:40px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px;}
+.goal-main{font-size:14px;color:var(--text);line-height:1.7;}
+.goal-main strong{color:var(--accent);}
+.goal-stat{text-align:right;}
+.goal-stat-num{font-family:var(--mono);font-size:28px;font-weight:700;color:#fff;line-height:1;}
+.goal-stat-label{font-size:11px;color:var(--muted);margin-top:4px;}
+
+/* CONTACT */
+.contact-row{display:flex;gap:12px;flex-wrap:wrap;}
+.contact-link{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:5px;text-decoration:none;color:var(--muted);font-size:13px;transition:all 0.2s;font-family:var(--mono);letter-spacing:0.04em;}
+.contact-link:hover{border-color:var(--accent);color:var(--accent);}
+.contact-link .icon{font-size:14px;}
+
+/* FOOTER */
+.footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.footer-copy{font-family:var(--mono);font-size:10px;color:rgba(136,136,153,0.5);}
+.footer-version{font-family:var(--mono);font-size:10px;color:rgba(124,107,255,0.4);}
+
+@media(max-width:600px){
+.hero{grid-template-columns:1fr;}.hero-badge{align-items:flex-start;}
+.about-grid{grid-template-columns:1fr;}.sys-grid{grid-template-columns:1fr;}
+.skills-grid{grid-template-columns:1fr 1fr;}.goal-card{grid-template-columns:1fr;}
+.goal-stat{text-align:left;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="hero-tag">Unity Game Developer</div>
+    <h1>Từ Quyết<br/><span class="accent">Thắng</span></h1>
+    <p class="hero-sub">
+      Tập trung vào <strong>kiến trúc hệ thống</strong> — không chỉ làm game chạy được,<br/>
+      mà thiết kế để <strong>dễ mở rộng và bảo trì</strong>.
+    </p>
+  </div>
+  <div class="hero-badge">
+    <div class="badge live">Tìm việc</div>
+    <div class="badge">Intern / Junior</div>
+    <div class="badge">HUFLIT · Năm 3</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<div class="sec-label">Giới thiệu</div>
+<div class="about-grid">
+  <div class="about-card" data-num="01">
+    <h3>// Xuất phát điểm</h3>
+    <p>Bắt đầu từ Web, chuyển sang Game Dev từ năm 2. Nhận ra khi project lớn dần, <strong>kiến trúc yếu → code rối</strong>. Từ đó tập trung học system design.</p>
+  </div>
+  <div class="about-card" data-num="02">
+    <h3>// Đào tạo</h3>
+    <p>Hoàn thành khóa Unity <strong>8 tháng tại CodeGym</strong> năm 2025. Tập trung vào OOP, SOLID, Design Patterns — chuyển từ "code chạy được" sang "thiết kế hệ thống".</p>
+  </div>
+  <div class="about-card" data-num="03">
+    <h3>// Nền tảng kỹ thuật</h3>
+    <p>C# với OOP và SOLID principles. Composite, Strategy pattern. <strong>ASP.NET Core MVC</strong> từ background Web. Git / GitHub workflow.</p>
+  </div>
+  <div class="about-card" data-num="04">
+    <h3>// Hiện tại</h3>
+    <p>Năm 3 · chỉ học <strong>2 buổi/tuần</strong> → nhiều thời gian làm việc thực tế. Ưu tiên môi trường học hỏi hơn mức lương.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- JOURNEY -->
+<div class="sec-label">Hành trình</div>
+<div class="timeline">
+  <div class="tl-item">
+    <div class="tl-dot"></div>
+    <div class="tl-meta">2022 — bắt đầu</div>
+    <div class="tl-title">Nhập học HUFLIT · Web Development</div>
+    <div class="tl-desc">Nền tảng lập trình với ASP.NET Core MVC, C#.</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-dot"></div>
+    <div class="tl-meta">Năm 2 — pivot</div>
+    <div class="tl-title">Chuyển hướng sang Unity Game Dev</div>
+    <div class="tl-desc">Project nhỏ: Flappy Bird, bắn ruồi... nhận ra giới hạn của monolithic script.</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-dot green"></div>
+    <div class="tl-meta">2025 — đào tạo chuyên sâu</div>
+    <div class="tl-title">Khóa Unity 8 tháng · CodeGym ✓</div>
+    <div class="tl-desc">OOP, SOLID, Design Patterns. Tư duy chuyển từ feature → architecture.</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-dot green"></div>
+    <div class="tl-meta">Hiện tại</div>
+    <div class="tl-title">Modular Game System — Project chính</div>
+    <div class="tl-desc">Behavior system, Skill system, Inventory — data-driven & event-driven architecture.</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PROJECT -->
+<div class="sec-label">Dự án tiêu biểu</div>
+<div class="project-card">
+  <div class="project-header" onclick="toggleProject(this)">
+    <div class="project-title-row">
+      <div class="project-icon">⚙</div>
+      <div>
+        <div class="project-name">MODULAR GAME SYSTEM</div>
+        <div class="project-type">Unity · C# · Data-driven Architecture</div>
+      </div>
+    </div>
+    <div class="expand-btn" id="expand-btn">[ xem chi tiết + ]</div>
+  </div>
+  <div class="project-body" id="project-body">
+    <div class="sys-grid">
+      <div class="sys-item">
+        <div class="sys-name">// BEHAVIOR SYSTEM</div>
+        <div class="sys-desc">Entity gắn nhiều behavior độc lập. Runtime bật/tắt dựa trên data. <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">GetData&lt;T&gt;()</code> mapping data → logic.</div>
+        <div class="sys-tags">
+          <span class="tag tag-purple">Data-driven</span>
+          <span class="tag tag-green">Runtime Composition</span>
+          <span class="tag tag-red">No if-else by type</span>
+        </div>
+      </div>
+      <div class="sys-item">
+        <div class="sys-name">// SKILL SYSTEM</div>
+        <div class="sys-desc">Skill định nghĩa bằng <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">SkillCfg</code>. Runtime xử lý qua <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">SkillBase</code>. Kết hợp Effect System trigger theo event.</div>
+        <div class="sys-tags">
+          <span class="tag tag-purple">Event-driven</span>
+          <span class="tag tag-green">Config-based</span>
+          <span class="tag tag-green">Open/Closed</span>
+        </div>
+      </div>
+      <div class="sys-item full">
+        <div class="sys-name">// SUPPORTING SYSTEMS</div>
+        <div class="sys-desc" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+          <div><strong style="color:var(--text);font-size:12px;">Inventory</strong><br/>Quản lý item theo cấu trúc đệ quy. Linh hoạt với nhiều loại container.</div>
+          <div><strong style="color:var(--text);font-size:12px;">Shop</strong><br/>Logic mua/bán, tương tác với inventory system. Tách biệt UI và logic.</div>
+          <div><strong style="color:var(--text);font-size:12px;">Data Persistence</strong><br/>Lưu & load dữ liệu game bằng JSON. Dễ debug và portable.</div>
+        </div>
+      </div>
+    </div>
+    <div class="sec-label" style="margin-top:20px;">Kết quả đạt được</div>
+    <ul class="result-list">
+      <li>Loại bỏ <strong>logic hard-code và if-else</strong> phức tạp theo type</li>
+      <li>Giảm <strong>coupling</strong> giữa các hệ thống — thay đổi 1 nơi không vỡ nơi khác</li>
+      <li>Thêm feature mới <strong>không cần sửa code cũ</strong> (Open/Closed principle)</li>
+      <li>Code <strong>rõ ràng và dễ maintain</strong> so với version monolithic ban đầu</li>
+    </ul>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<div class="sec-label">Kỹ năng</div>
+<div class="skills-grid">
+  <div class="skill-row">
+    <div class="skill-cat">Language</div>
+    <div class="skill-items">
+      <span class="skill-chip">C#</span>
+      <span class="skill-chip">OOP</span>
+      <span class="skill-chip">SOLID</span>
+    </div>
+  </div>
+  <div class="skill-row">
+    <div class="skill-cat">Engine</div>
+    <div class="skill-items">
+      <span class="skill-chip">Unity</span>
+      <span class="skill-chip">Gameplay</span>
+      <span class="skill-chip">System Design</span>
+    </div>
+  </div>
+  <div class="skill-row">
+    <div class="skill-cat">Patterns</div>
+    <div class="skill-items">
+      <span class="skill-chip">Composite</span>
+      <span class="skill-chip">Strategy</span>
+      <span class="skill-chip">Polymorphism</span>
+    </div>
+  </div>
+  <div class="skill-row">
+    <div class="skill-cat">Tools</div>
+    <div class="skill-items">
+      <span class="skill-chip">Git</span>
+      <span class="skill-chip">GitHub</span>
+      <span class="skill-chip">Visual Studio</span>
+    </div>
+  </div>
+  <div class="skill-row">
+    <div class="skill-cat">Other Stack</div>
+    <div class="skill-items">
+      <span class="skill-chip">ASP.NET Core MVC</span>
+    </div>
+  </div>
+  <div class="skill-row">
+    <div class="skill-cat">Soft Skills</div>
+    <div class="skill-items">
+      <span class="skill-chip">Self-learning</span>
+      <span class="skill-chip">Problem solving</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- GOAL -->
+<div class="sec-label">Mục tiêu</div>
+<div class="goal-card">
+  <div class="goal-main">
+    Đang tìm kiếm vị trí <strong>Intern / Fresher Unity Developer</strong>.<br/>
+    Ưu tiên <strong>môi trường học hỏi</strong> và làm việc với dự án thực tế.<br/>
+    Không đặt nặng mức lương — cần <strong>kinh nghiệm thực chiến</strong>.
+  </div>
+  <div class="goal-stat">
+    <div class="goal-stat-num">2</div>
+    <div class="goal-stat-label">buổi học / tuần<br/>→ sẵn sàng full-time</div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="sec-label">Liên hệ</div>
+<div class="contact-row">
+  <a class="contact-link" href="#">
+    <span class="icon">⌥</span> GitHub
+  </a>
+  <a class="contact-link" href="#">
+    <span class="icon">✉</span> Email
+  </a>
+  <a class="contact-link" href="#">
+    <span class="icon">☏</span> SĐT
+  </a>
+</div>
+
+<div class="footer">
+  <div class="footer-copy">© 2025 Từ Quyết Thắng</div>
+  <div class="footer-version">v1.0.0 · Unity Dev Portfolio</div>
+</div>
+
+</div>
+
+<script>
+function toggleProject(header){
+  const body=document.getElementById('project-body');
+  const btn=document.getElementById('expand-btn');
+  const isOpen=body.classList.contains('open');
+  if(isOpen){body.classList.remove('open');btn.textContent='[ xem chi tiết + ]';}
+  else{body.classList.add('open');btn.textContent='[ thu gọn − ]';}
+}
+</script>
+</body>
+</html>
