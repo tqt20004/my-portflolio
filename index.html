@@ -28,7 +28,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 
 /* HERO */
 .hero{padding:80px 0 60px;display:grid;grid-template-columns:1fr auto;align-items:start;gap:40px;}
-.hero-tag{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.hero-tag{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:36px;display:flex;align-items:center;gap:8px;}
 .hero-tag::before{content:'';display:inline-block;width:24px;height:1px;background:var(--accent);}
 .hero h1{font-family:var(--mono);font-size:clamp(28px,5vw,48px);font-weight:700;line-height:1.1;letter-spacing:-0.02em;color:#fff;}
 .hero h1 .accent{color:var(--accent);}
@@ -110,6 +110,111 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 .goal-stat-num{font-family:var(--mono);font-size:28px;font-weight:700;color:#fff;line-height:1;}
 .goal-stat-label{font-size:11px;color:var(--muted);margin-top:4px;}
 
+
+
+
+/* Intro Cover Styling - Trang bìa 100vh */
+.intro-cover {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden; /* Tránh ảnh tràn ra ngoài */
+    display: grid;
+    place-items: center; /* Căn giữa nội dung chữ */
+}
+
+.cover-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Giữ tỷ lệ ảnh, tràn toàn bộ */
+    z-index: -2; /* Nằm dưới cùng */
+    opacity: 0.8; /* Hơi mờ ảnh để tập trung vào chữ */
+}
+
+/* Lớp phủ tối (Overlay) - Giúp chữ dễ đọc hơn */
+.intro-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,15,0.4) 0%, rgba(10,10,15,1) 100%);
+    z-index: -1; /* Nằm trên ảnh nhưng dưới chữ */
+}
+
+.intro-content {
+    text-align: center;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90%;
+}
+
+.intro-name {
+    font-family: var(--mono);
+    font-size: clamp(48px, 10vw, 100px); /* Tên cực kỳ to, co giãn theo màn hình */
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    color: #fff;
+    margin-bottom: 20px;
+    text-shadow: 0 0 15px rgba(255,255,255,0.3); /* Hiệu ứng tỏa sáng nhẹ */
+}
+
+.intro-info {
+    font-family: var(--mono);
+    font-size: clamp(10px, 1.5vw, 14px);
+    color: #fff;
+    opacity: 0.8;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+}
+
+/* Hiệu ứng cuộn xuống (Scroll indicator) */
+.scroll-indicator {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    opacity: 0.6;
+}
+
+.arrow {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollMove 2s infinite;
+}
+
+@keyframes scrollMove {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* Tinh chỉnh phần nội dung chính bên dưới */
+.container {
+    padding-top: 80px; /* Thêm padding đầu tiên khi kéo xuống */
+}
+
+/* Sửa lại .hero cũ để nó không hiện tên lặp lại quá gần nhau */
+.hero h1 {
+    display: none; /* Ẩn thẻ H1 cũ, vì ta đã có trang bìa */
+}
+.hero {
+    padding: 20px 0 60px; /* Giảm bớt padding hero cũ */
+}
+
+
+
 /* CONTACT */
 .contact-row{display:flex;gap:12px;flex-wrap:wrap;}
 .contact-link{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:5px;text-decoration:none;color:var(--muted);font-size:13px;transition:all 0.2s;font-family:var(--mono);letter-spacing:0.04em;}
@@ -129,235 +234,262 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 }
 </style>
 </head>
+
+
+
+
+
+
+
+
+
+
+
 <body>
-<div class="container">
 
-<!-- HERO -->
-<div class="hero">
-  <div>
-    <div class="hero-tag">Unity Game Developer</div>
-    <h1>Từ Quyết<br/><span class="accent">Thắng</span></h1>
-    <p class="hero-sub">
-      Tập trung vào <strong>kiến trúc hệ thống</strong> — không chỉ làm game chạy được,<br/>
-      mà thiết kế để <strong>dễ mở rộng và bảo trì</strong>.
-    </p>
-  </div>
-  <div class="hero-badge">
-    <div class="badge live">Tìm việc</div>
-    <div class="badge">Intern / Junior</div>
-    <div class="badge">HUFLIT · Năm 3</div>
-  </div>
-</div>
+    <section class="intro-cover">
+        <img src="https://nhakhoaquocteaqua.com/wp-content/uploads/hinh-nen-may-tinh-4k-20.jpg" alt="background" class="cover-image" />
 
-<div class="divider"></div>
-
-<!-- ABOUT -->
-<div class="sec-label">Giới thiệu</div>
-<div class="about-grid">
-  <div class="about-card" data-num="01">
-    <h3>// Giới Thiệu Chung</h3>
-<p>
-    <strong>Sinh Viên Đại Học Ngoại Ngữ Tin Học (Huflit)</strong><br/>
-    - Chuyên ngành: Lập trình Web.<br/>
-    - Tìm hiểu về Unity từ đầu năm 2.<br/>
-    - Tập lập trình các dự án Flappy Bird, Mario theo trên YouTube.Và hoàn thành khóa học CodeGym 8 tháng về Unity<br/>
-</p>  </div>
-  <div class="about-card" data-num="02">
-    <h3>// Đào tạo</h3>
-    <p>Hoàn thành khóa Unity <strong>8 tháng tại CodeGym</strong> năm 2025. Tập trung vào OOP, SOLID, Design Patterns — được học về cơ bản C#, Unity đến thiết kế hệ thống.</p>
-  </div>
-  <div class="about-card" data-num="03">
-    <h3>// Nền tảng kỹ thuật</h3>
-    <p>C# với OOP và SOLID principles. Composite, Strategy pattern. <strong>ASP.NET Core MVC</strong> từ background Web. Git / GitHub workflow.</p>
-  </div>
-  <div class="about-card" data-num="04">
-    <h3>// Hiện tại</h3>
-    <p>Năm 3 · chỉ học <strong>2 buổi/tuần</strong> → nhiều thời gian làm việc thực tế. Ưu tiên môi trường học hỏi hơn mức lương.</p>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- JOURNEY -->
-<div class="sec-label">Hành trình</div>
-<div class="timeline">
-  <div class="tl-item">
-    <div class="tl-dot"></div>
-    <div class="tl-meta">2022 — bắt đầu</div>
-    <div class="tl-title">Nhập học HUFLIT · Web Development</div>
-    <div class="tl-desc">Nền tảng lập trình với ASP.NET Core MVC, C#.</div>
-  </div>
-  <div class="tl-item">
-    <div class="tl-dot"></div>
-    <div class="tl-meta">Năm 2 — pivot</div>
-    <div class="tl-title">Chuyển hướng sang Unity Game Dev</div>
-    <div class="tl-desc">Project nhỏ: Flappy Bird, bắn ruồi... nhận ra giới hạn của monolithic script.</div>
-  </div>
-  <div class="tl-item">
-    <div class="tl-dot green"></div>
-    <div class="tl-meta">2025 — đào tạo chuyên sâu</div>
-    <div class="tl-title">Khóa Unity 8 tháng · CodeGym ✓</div>
-    <div class="tl-desc">OOP, SOLID, Design Patterns. Tư duy chuyển từ feature → architecture.</div>
-  </div>
-  <div class="tl-item">
-    <div class="tl-dot green"></div>
-    <div class="tl-meta">Hiện tại</div>
-    <div class="tl-title">Modular Game System — Project chính</div>
-    <div class="tl-desc">Behavior system, Skill system, Inventory — data-driven & event-driven architecture.</div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- PROJECT -->
-<div class="sec-label">Dự án tiêu biểu</div>
-<div class="project-card">
-  <div class="project-header" onclick="toggleProject(this)">
-    <div class="project-title-row">
-      <div class="project-icon">⚙</div>
-      <div>
-        <div class="project-name">MODULAR GAME SYSTEM</div>
-        <div class="project-type">Unity · C# · Data-driven Architecture</div>
-      </div>
-    </div>
-    <div class="expand-btn" id="expand-btn">[ xem chi tiết + ]</div>
-  </div>
-  <div class="project-body" id="project-body">
-    <div class="sys-grid">
-      <div class="sys-item">
-        <div class="sys-name">// BEHAVIOR SYSTEM</div>
-        <div class="sys-desc">Entity gắn nhiều behavior độc lập. Runtime bật/tắt dựa trên data. <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">GetData&lt;T&gt;()</code> mapping data → logic.</div>
-        <div class="sys-tags">
-          <span class="tag tag-purple">Data-driven</span>
-          <span class="tag tag-green">Runtime Composition</span>
-          <span class="tag tag-red">No if-else by type</span>
+        <div class="intro-overlay"></div> <div class="intro-content">
+            <div class="hero-tag">Portfolio 2026</div>
+            <h1 class="intro-name">TỪ QUYẾT <span class="accent">THẮNG</span></h1>
+            <p class="intro-info">Unity Developer</p>
+            <div class="scroll-indicator">
+                <span>Cuộn xuống</span>
+                <div class="arrow"></div>
+            </div>
         </div>
-      </div>
-      <div class="sys-item">
-        <div class="sys-name">// SKILL SYSTEM</div>
-        <div class="sys-desc">Skill định nghĩa bằng <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">SkillCfg</code>. Runtime xử lý qua <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">SkillBase</code>. Kết hợp Effect System trigger theo event.</div>
-        <div class="sys-tags">
-          <span class="tag tag-purple">Event-driven</span>
-          <span class="tag tag-green">Config-based</span>
-          <span class="tag tag-green">Open/Closed</span>
+    </section>
+    <div class="container">
+
+
+
+        <!-- HERO -->
+        <div class="hero">
+            <div>
+                <div class="hero-tag">Unity Game Developer</div>
+                <p class="hero-sub">
+                    Tập trung vào <strong>kiến trúc hệ thống</strong> — không chỉ làm game chạy được,<br />
+                    mà thiết kế để <strong>dễ mở rộng và bảo trì</strong>.
+                </p>
+            </div>
+            <div class="hero-badge">
+                <div class="badge live">Tìm việc</div>
+                <div class="badge">Intern / Junior</div>
+                <div class="badge">HUFLIT · Năm 3</div>
+            </div>
         </div>
-      </div>
-      <div class="sys-item full">
-        <div class="sys-name">// SUPPORTING SYSTEMS</div>
-        <div class="sys-desc" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
-          <div><strong style="color:var(--text);font-size:12px;">Inventory</strong><br/>Quản lý item theo cấu trúc đệ quy. Linh hoạt với nhiều loại container.</div>
-          <div><strong style="color:var(--text);font-size:12px;">Shop</strong><br/>Logic mua/bán, tương tác với inventory system. Tách biệt UI và logic.</div>
-          <div><strong style="color:var(--text);font-size:12px;">Data Persistence</strong><br/>Lưu & load dữ liệu game bằng JSON. Dễ debug và portable.</div>
+
+        <div class="divider"></div>
+
+        <!-- ABOUT -->
+        <div class="sec-label">Giới thiệu</div>
+        <div class="about-grid">
+            <div class="about-card" data-num="01">
+                <h3>// Giới Thiệu Chung</h3>
+                <p>
+                    <strong>Sinh Viên Đại Học Ngoại Ngữ Tin Học (Huflit)</strong><br />
+                    - Chuyên ngành: Lập trình Web.<br />
+                    - Tìm hiểu về Unity từ đầu năm 2.<br />
+                    - Tập lập trình các dự án Flappy Bird, Mario theo trên YouTube.Và hoàn thành khóa học CodeGym 8 tháng về Unity<br />
+                </p>
+            </div>
+            <div class="about-card" data-num="02">
+                <h3>// Đào tạo</h3>
+                <p>Hoàn thành khóa Unity <strong>8 tháng tại CodeGym</strong> năm 2025. Tập trung vào OOP, SOLID, Design Patterns — được học về cơ bản C#, Unity đến thiết kế hệ thống.</p>
+            </div>
+            <div class="about-card" data-num="03">
+                <h3>// Nền tảng kỹ thuật</h3>
+                <p>C# với OOP và SOLID principles. Composite, Strategy pattern. <strong>ASP.NET Core MVC</strong> từ background Web. Git / GitHub workflow.</p>
+            </div>
+            <div class="about-card" data-num="04">
+                <h3>// Hiện tại</h3>
+                <p>Năm 3 · chỉ học <strong>2 buổi/tuần</strong> → nhiều thời gian làm việc thực tế. Ưu tiên môi trường học hỏi hơn mức lương.</p>
+            </div>
         </div>
-      </div>
+
+        <div class="divider"></div>
+
+        <!-- JOURNEY -->
+        <div class="sec-label">Hành trình</div>
+        <div class="timeline">
+            <div class="tl-item">
+                <div class="tl-dot"></div>
+                <div class="tl-meta">2022 — bắt đầu</div>
+                <div class="tl-title">Nhập học HUFLIT · Web Development</div>
+                <div class="tl-desc">Nền tảng lập trình với ASP.NET Core MVC, C#.</div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-dot"></div>
+                <div class="tl-meta">Năm 2 — pivot</div>
+                <div class="tl-title">Chuyển hướng sang Unity Game Dev</div>
+                <div class="tl-desc">Project nhỏ: Flappy Bird, bắn ruồi... nhận ra giới hạn của monolithic script.</div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-dot green"></div>
+                <div class="tl-meta">2025 — đào tạo chuyên sâu</div>
+                <div class="tl-title">Khóa Unity 8 tháng · CodeGym ✓</div>
+                <div class="tl-desc">OOP, SOLID, Design Patterns. Tư duy chuyển từ feature → architecture.</div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-dot green"></div>
+                <div class="tl-meta">Hiện tại</div>
+                <div class="tl-title">Modular Game System — Project chính</div>
+                <div class="tl-desc">Behavior system, Skill system, Inventory — data-driven & event-driven architecture.</div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- PROJECT -->
+        <div class="sec-label">Dự án tiêu biểu</div>
+        <div class="project-card">
+            <div class="project-header" onclick="toggleProject(this)">
+                <div class="project-title-row">
+                    <div class="project-icon">⚙</div>
+                    <div>
+                        <div class="project-name">MODULAR GAME SYSTEM</div>
+                        <div class="project-type">Unity · C# · Data-driven Architecture</div>
+                    </div>
+                </div>
+                <div class="expand-btn" id="expand-btn">[ xem chi tiết + ]</div>
+            </div>
+            <div class="project-body" id="project-body">
+                <div class="sys-grid">
+                    <div class="sys-item">
+                        <div class="sys-name">// BEHAVIOR SYSTEM</div>
+                        <div class="sys-desc">Entity gắn nhiều behavior độc lập. Runtime bật/tắt dựa trên data. <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">GetData&lt;T&gt;()</code> mapping data → logic.</div>
+                        <div class="sys-tags">
+                            <span class="tag tag-purple">Data-driven</span>
+                            <span class="tag tag-green">Runtime Composition</span>
+                            <span class="tag tag-red">No if-else by type</span>
+                        </div>
+                    </div>
+                    <div class="sys-item">
+                        <div class="sys-name">// SKILL SYSTEM</div>
+                        <div class="sys-desc">Skill định nghĩa bằng <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">SkillCfg</code>. Runtime xử lý qua <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">SkillBase</code>. Kết hợp Effect System trigger theo event.</div>
+                        <div class="sys-tags">
+                            <span class="tag tag-purple">Event-driven</span>
+                            <span class="tag tag-green">Config-based</span>
+                            <span class="tag tag-green">Open/Closed</span>
+                        </div>
+                    </div>
+                    <div class="sys-item full">
+                        <div class="sys-name">// SUPPORTING SYSTEMS</div>
+                        <div class="sys-desc" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+                            <div><strong style="color:var(--text);font-size:12px;">Inventory</strong><br />Quản lý item theo cấu trúc đệ quy. Linh hoạt với nhiều loại container.</div>
+                            <div><strong style="color:var(--text);font-size:12px;">Shop</strong><br />Logic mua/bán, tương tác với inventory system. Tách biệt UI và logic.</div>
+                            <div><strong style="color:var(--text);font-size:12px;">Data Persistence</strong><br />Lưu & load dữ liệu game bằng JSON. Dễ debug và portable.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sec-label" style="margin-top:20px;">Kết quả đạt được</div>
+                <ul class="result-list">
+                    <li>Loại bỏ <strong>logic hard-code và if-else</strong> phức tạp theo type</li>
+                    <li>Giảm <strong>coupling</strong> giữa các hệ thống — thay đổi 1 nơi không vỡ nơi khác</li>
+                    <li>Thêm feature mới <strong>không cần sửa code cũ</strong> (Open/Closed principle)</li>
+                    <li>Code <strong>rõ ràng và dễ maintain</strong> so với version monolithic ban đầu</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- SKILLS -->
+        <div class="sec-label">Kỹ năng</div>
+        <div class="skills-grid">
+            <div class="skill-row">
+                <div class="skill-cat">Language</div>
+                <div class="skill-items">
+                    <span class="skill-chip">C#</span>
+                    <span class="skill-chip">OOP</span>
+                    <span class="skill-chip">SOLID</span>
+                </div>
+            </div>
+            <div class="skill-row">
+                <div class="skill-cat">Engine</div>
+                <div class="skill-items">
+                    <span class="skill-chip">Unity</span>
+                    <span class="skill-chip">Gameplay</span>
+                    <span class="skill-chip">System Design</span>
+                </div>
+            </div>
+            <div class="skill-row">
+                <div class="skill-cat">Patterns</div>
+                <div class="skill-items">
+                    <span class="skill-chip">Composite</span>
+                    <span class="skill-chip">Strategy</span>
+                    <span class="skill-chip">Polymorphism</span>
+                </div>
+            </div>
+            <div class="skill-row">
+                <div class="skill-cat">Tools</div>
+                <div class="skill-items">
+                    <span class="skill-chip">Git</span>
+                    <span class="skill-chip">GitHub</span>
+                    <span class="skill-chip">Visual Studio</span>
+                </div>
+            </div>
+            <div class="skill-row">
+                <div class="skill-cat">Other Stack</div>
+                <div class="skill-items">
+                    <span class="skill-chip">ASP.NET Core MVC</span>
+                </div>
+            </div>
+            <div class="skill-row">
+                <div class="skill-cat">Soft Skills</div>
+                <div class="skill-items">
+                    <span class="skill-chip">Self-learning</span>
+                    <span class="skill-chip">Problem solving</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- GOAL -->
+        <div class="sec-label">Mục tiêu</div>
+        <div class="goal-card">
+            <div class="goal-main">
+                Đang tìm kiếm vị trí <strong>Intern / Fresher Unity Developer</strong>.<br />
+                Ưu tiên <strong>môi trường học hỏi</strong> và làm việc với dự án thực tế.<br />
+                Không đặt nặng mức lương — cần <strong>kinh nghiệm thực chiến</strong>.
+            </div>
+            <div class="goal-stat">
+                <div class="goal-stat-num">2</div>
+                <div class="goal-stat-label">buổi học / tuần<br />→ sẵn sàng full-time</div>
+            </div>
+        </div>
+
+        <!-- CONTACT -->
+        <div class="sec-label">Liên hệ</div>
+        <div class="contact-row">
+            <a class="contact-link" href="#">
+                <span class="icon">⌥</span> GitHub
+            </a>
+            <a class="contact-link" href="#">
+                <span class="icon">✉</span> Email
+            </a>
+            <a class="contact-link" href="#">
+                <span class="icon">☏</span> SĐT
+            </a>
+        </div>
+
+        <div class="footer">
+            <div class="footer-copy">© 2025 Từ Quyết Thắng</div>
+            <div class="footer-version">v1.0.0 · Unity Dev Portfolio</div>
+        </div>
+
     </div>
-    <div class="sec-label" style="margin-top:20px;">Kết quả đạt được</div>
-    <ul class="result-list">
-      <li>Loại bỏ <strong>logic hard-code và if-else</strong> phức tạp theo type</li>
-      <li>Giảm <strong>coupling</strong> giữa các hệ thống — thay đổi 1 nơi không vỡ nơi khác</li>
-      <li>Thêm feature mới <strong>không cần sửa code cũ</strong> (Open/Closed principle)</li>
-      <li>Code <strong>rõ ràng và dễ maintain</strong> so với version monolithic ban đầu</li>
-    </ul>
-  </div>
-</div>
 
-<div class="divider"></div>
-
-<!-- SKILLS -->
-<div class="sec-label">Kỹ năng</div>
-<div class="skills-grid">
-  <div class="skill-row">
-    <div class="skill-cat">Language</div>
-    <div class="skill-items">
-      <span class="skill-chip">C#</span>
-      <span class="skill-chip">OOP</span>
-      <span class="skill-chip">SOLID</span>
-    </div>
-  </div>
-  <div class="skill-row">
-    <div class="skill-cat">Engine</div>
-    <div class="skill-items">
-      <span class="skill-chip">Unity</span>
-      <span class="skill-chip">Gameplay</span>
-      <span class="skill-chip">System Design</span>
-    </div>
-  </div>
-  <div class="skill-row">
-    <div class="skill-cat">Patterns</div>
-    <div class="skill-items">
-      <span class="skill-chip">Composite</span>
-      <span class="skill-chip">Strategy</span>
-      <span class="skill-chip">Polymorphism</span>
-    </div>
-  </div>
-  <div class="skill-row">
-    <div class="skill-cat">Tools</div>
-    <div class="skill-items">
-      <span class="skill-chip">Git</span>
-      <span class="skill-chip">GitHub</span>
-      <span class="skill-chip">Visual Studio</span>
-    </div>
-  </div>
-  <div class="skill-row">
-    <div class="skill-cat">Other Stack</div>
-    <div class="skill-items">
-      <span class="skill-chip">ASP.NET Core MVC</span>
-    </div>
-  </div>
-  <div class="skill-row">
-    <div class="skill-cat">Soft Skills</div>
-    <div class="skill-items">
-      <span class="skill-chip">Self-learning</span>
-      <span class="skill-chip">Problem solving</span>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- GOAL -->
-<div class="sec-label">Mục tiêu</div>
-<div class="goal-card">
-  <div class="goal-main">
-    Đang tìm kiếm vị trí <strong>Intern / Fresher Unity Developer</strong>.<br/>
-    Ưu tiên <strong>môi trường học hỏi</strong> và làm việc với dự án thực tế.<br/>
-    Không đặt nặng mức lương — cần <strong>kinh nghiệm thực chiến</strong>.
-  </div>
-  <div class="goal-stat">
-    <div class="goal-stat-num">2</div>
-    <div class="goal-stat-label">buổi học / tuần<br/>→ sẵn sàng full-time</div>
-  </div>
-</div>
-
-<!-- CONTACT -->
-<div class="sec-label">Liên hệ</div>
-<div class="contact-row">
-  <a class="contact-link" href="#">
-    <span class="icon">⌥</span> GitHub
-  </a>
-  <a class="contact-link" href="#">
-    <span class="icon">✉</span> Email
-  </a>
-  <a class="contact-link" href="#">
-    <span class="icon">☏</span> SĐT
-  </a>
-</div>
-
-<div class="footer">
-  <div class="footer-copy">© 2025 Từ Quyết Thắng</div>
-  <div class="footer-version">v1.0.0 · Unity Dev Portfolio</div>
-</div>
-
-</div>
-
-<script>
-function toggleProject(header){
-  const body=document.getElementById('project-body');
-  const btn=document.getElementById('expand-btn');
-  const isOpen=body.classList.contains('open');
-  if(isOpen){body.classList.remove('open');btn.textContent='[ xem chi tiết + ]';}
-  else{body.classList.add('open');btn.textContent='[ thu gọn − ]';}
-}
-</script>
+    <script>
+        function toggleProject(header) {
+            const body = document.getElementById('project-body');
+            const btn = document.getElementById('expand-btn');
+            const isOpen = body.classList.contains('open');
+            if (isOpen) { body.classList.remove('open'); btn.textContent = '[ xem chi tiết + ]'; }
+            else { body.classList.add('open'); btn.textContent = '[ thu gọn − ]'; }
+        }
+    </script>
 </body>
 </html>
