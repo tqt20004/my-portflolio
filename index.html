@@ -253,7 +253,10 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
         <div class="intro-overlay"></div> <div class="intro-content">
             <div class="hero-tag">Portfolio 2026</div>
             <h1 class="intro-name">TỪ QUYẾT <span class="accent">THẮNG</span></h1>
-            <p class="intro-info">Unity Developer</p>
+            <p class="intro-info">
+                Unity Gameplay Developer</br>
+                Focus on modular gameplay systems & clean architecture
+            </p>
             <div class="scroll-indicator">
                 <span>Cuộn xuống</span>
                 <div class="arrow"></div>
@@ -269,9 +272,17 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
             <div>
                 <div class="hero-tag">Unity Game Developer</div>
                 <p class="hero-sub">
-                    Tập trung vào <strong>kiến trúc hệ thống</strong> — không chỉ làm game chạy được,<br />
-                    mà thiết kế để <strong>dễ mở rộng và bảo trì</strong>.
+                    Tập trung vào <strong>kiến trúc hệ thống</strong>  thiết kế để <strong>dễ mở rộng và bảo trì</strong>.
+                    Dự Án Của Tôi:
                 </p>
+                <div style="margin-top: 15px; display: flex; gap: 15px;">
+                    <a href="https://github.com/tqt20004" target="_blank" style="color: #a29bfe; text-decoration: none; font-size: 0.85rem; border-bottom: 1px solid rgba(162,155,254,0.3);">
+                        ⌥ GitHub Project
+                    </a>
+                    <a href="LINK_CHOI_GAME_CUA_ONG" target="_blank" style="color: #00ff88; text-decoration: none; font-size: 0.85rem; border-bottom: 1px solid rgba(0,255,136,0.3);">
+                        ▶ Chơi ngay trên Web
+                    </a>
+                </div>
             </div>
             <div class="hero-badge">
                 <div class="badge live">Tìm việc</div>
@@ -390,6 +401,11 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
                     <li>Thêm feature mới <strong>không cần sửa code cũ</strong> (Open/Closed principle)</li>
                     <li>Code <strong>rõ ràng và dễ maintain</strong> so với version monolithic ban đầu</li>
                 </ul>
+                <div class="sec-label" style="margin-top:20px;">Sản Phẩm</div>
+                <ul class="result-list">
+                    <li>link git:https://github.com/tqt20004/Project-</li>
+                    <li>Link chơi th</li>
+                </ul>
             </div>
         </div>
 
@@ -402,32 +418,29 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
                 <div class="skill-cat">Language</div>
                 <div class="skill-items">
                     <span class="skill-chip">C#</span>
-                    <span class="skill-chip">OOP</span>
-                    <span class="skill-chip">SOLID</span>
                 </div>
             </div>
             <div class="skill-row">
                 <div class="skill-cat">Engine</div>
                 <div class="skill-items">
                     <span class="skill-chip">Unity</span>
-                    <span class="skill-chip">Gameplay</span>
-                    <span class="skill-chip">System Design</span>
                 </div>
             </div>
             <div class="skill-row">
-                <div class="skill-cat">Patterns</div>
+                <div class="skill-cat">Knowlegde</div>
                 <div class="skill-items">
-                    <span class="skill-chip">Composite</span>
-                    <span class="skill-chip">Strategy</span>
-                    <span class="skill-chip">Polymorphism</span>
+                    <span class="skill-chip">Basic Design Partern</span>
+                    <span class="skill-chip">OOP</span>
+                    <span class="skill-chip">SOLID</span>
+                    <span class="skill-chip">Intermediate English</span>
                 </div>
             </div>
             <div class="skill-row">
                 <div class="skill-cat">Tools</div>
                 <div class="skill-items">
-                    <span class="skill-chip">Git</span>
                     <span class="skill-chip">GitHub</span>
                     <span class="skill-chip">Visual Studio</span>
+                    <span class="skill-chip">VS Code</span>
                 </div>
             </div>
             <div class="skill-row">
@@ -462,34 +475,34 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
         </div>
 
         <!-- CONTACT -->
-        <div class="sec-label">Liên hệ</div>
         <div class="contact-row">
-            <a class="contact-link" href="#">
-                <span class="icon">⌥</span> GitHub
+            <a class="contact-link" href="https://github.com/tqt20004" target="_blank">
+                <span class="icon">⌥</span> github.com/tqt20004
             </a>
-            <a class="contact-link" href="#">
-                <span class="icon">✉</span> Email
-            </a>
-            <a class="contact-link" href="#">
-                <span class="icon">☏</span> SĐT
-            </a>
+
+            <div class="contact-link">
+                <span class="icon">✉</span> thangtu0440@gmail.com
+            </div>
+
+            <div class="contact-link">
+                <span class="icon">☏</span> 0923045530
+            </div>
         </div>
+        <script>
+            function copyText(text) {
+                navigator.clipboard.writeText(text);
+                alert("Đã copy: " + text);
+            }
+        </script>
 
-        <div class="footer">
-            <div class="footer-copy">© 2025 Từ Quyết Thắng</div>
-            <div class="footer-version">v1.0.0 · Unity Dev Portfolio</div>
-        </div>
-
-    </div>
-
-    <script>
-        function toggleProject(header) {
-            const body = document.getElementById('project-body');
-            const btn = document.getElementById('expand-btn');
-            const isOpen = body.classList.contains('open');
-            if (isOpen) { body.classList.remove('open'); btn.textContent = '[ xem chi tiết + ]'; }
-            else { body.classList.add('open'); btn.textContent = '[ thu gọn − ]'; }
-        }
-    </script>
+        <script>
+            function toggleProject(header) {
+                const body = document.getElementById('project-body');
+                const btn = document.getElementById('expand-btn');
+                const isOpen = body.classList.contains('open');
+                if (isOpen) { body.classList.remove('open'); btn.textContent = '[ xem chi tiết + ]'; }
+                else { body.classList.add('open'); btn.textContent = '[ thu gọn − ]'; }
+            }
+        </script>
 </body>
 </html>
