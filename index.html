@@ -354,7 +354,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 
         <div class="divider"></div>
 
-        <!-- PROJECT -->
+     <!-- PROJECT -->
         <div class="sec-label">Dự án tiêu biểu</div>
         <div class="project-card">
             <div class="project-header" onclick="toggleProject(this)">
@@ -367,53 +367,54 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
                 </div>
                 <div class="expand-btn" id="expand-btn">[ xem chi tiết + ]</div>
             </div>
-           <div class="project-body" id="project-body">
-    <div class="sys-grid">
-        <div class="sys-item">
-            <div class="sys-name">// BEHAVIOR SYSTEM</div>
-            <div class="sys-desc">Entity gắn nhiều behavior độc lập. Runtime bật/tắt dựa trên data. <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">GetData&lt;T&gt;()</code> mapping data → logic.</div>
-            <p><a href="https://raw.githubusercontent.com/tqt20004/my-portflolio/main/WeaponSystem.png" target="_blank">WeaponSystem.png</a></p>
-            <div class="sys-tags">
-                <span class="tag tag-purple">Data-driven</span>
-                <span class="tag tag-green">Runtime Composition</span>
-                <span class="tag tag-red">No if-else by type</span>
-            </div>
-        </div>
-        <div class="sys-item">
-            <div class="sys-name">// SKILL SYSTEM</div>
-            <div class="sys-desc">Skill định nghĩa bằng <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">SkillCfg</code>. Runtime xử lý qua <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">SkillBase</code>. Kết hợp Effect System trigger theo event.</div>
-            <p><a href="https://raw.githubusercontent.com/tqt20004/my-portflolio/main/UML_SkillSystem.png" target="_blank">UML_SkillSystem.png</a></p>
-            <div class="sys-tags">
-                <span class="tag tag-purple">Event-driven</span>
-                <span class="tag tag-green">Config-based</span>
-                <span class="tag tag-green">Open/Closed</span>
-            </div>
-        </div>
-    </div>
-</div>
-                    <div class="sys-item full">
-                        <div class="sys-name">// SUPPORTING SYSTEMS</div>
-                        <div class="sys-desc" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
-                            <div><strong style="color:var(--text);font-size:12px;">Inventory</strong><br />Quản lý item theo cấu trúc đệ quy. Linh hoạt với nhiều loại container.</div>
-                            <div><strong style="color:var(--text);font-size:12px;">Shop</strong><br />Logic mua/bán, tương tác với inventory system. Tách biệt UI và logic.</div>
-                            <div><strong style="color:var(--text);font-size:12px;">Data Persistence</strong><br />Lưu & load dữ liệu game bằng JSON. Dễ debug và portable.</div>
+            
+            <div class="project-body" id="project-body">
+                <div class="sys-grid">
+                    <div class="sys-item">
+                        <div class="sys-name">// BEHAVIOR SYSTEM</div>
+                        <div class="sys-desc">Entity gắn nhiều behavior độc lập. Runtime bật/tắt dựa trên data. <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">GetData&lt;T&gt;()</code> mapping data → logic.</div>
+                        <p><a href="https://raw.githubusercontent.com/tqt20004/my-portflolio/main/WeaponSystem.png" target="_blank">WeaponSystem.png</a></p>
+                        <div class="sys-tags">
+                            <span class="tag tag-purple">Data-driven</span>
+                            <span class="tag tag-green">Runtime Composition</span>
+                            <span class="tag tag-red">No if-else by type</span>
+                        </div>
+                    </div>
+                    <div class="sys-item">
+                        <div class="sys-name">// SKILL SYSTEM</div>
+                        <div class="sys-desc">Skill định nghĩa bằng <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">SkillCfg</code>. Runtime xử lý qua <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">SkillBase</code>. Kết hợp Effect System trigger theo event.</div>
+                        <p><a href="https://raw.githubusercontent.com/tqt20004/my-portflolio/main/UML_SkillSystem.png" target="_blank">UML_SkillSystem.png</a></p>
+                        <div class="sys-tags">
+                            <span class="tag tag-purple">Event-driven</span>
+                            <span class="tag tag-green">Config-based</span>
+                            <span class="tag tag-green">Open/Closed</span>
                         </div>
                     </div>
                 </div>
+
+                <div class="sys-item full">
+                    <div class="sys-name">// SUPPORTING SYSTEMS</div>
+                    <div class="sys-desc" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+                        <div><strong style="color:var(--text);font-size:12px;">Inventory</strong><br />Quản lý item theo cấu trúc đệ quy.</div>
+                        <div><strong style="color:var(--text);font-size:12px;">Shop</strong><br />Logic mua/bán, tách biệt UI và logic.</div>
+                        <div><strong style="color:var(--text);font-size:12px;">Data Persistence</strong><br />Lưu & load dữ liệu game bằng JSON.</div>
+                    </div>
+                </div>
+
                 <div class="sec-label" style="margin-top:20px;">Kết quả đạt được</div>
                 <ul class="result-list">
                     <li>Loại bỏ <strong>logic hard-code và if-else</strong> phức tạp theo type</li>
-                    <li>Giảm <strong>coupling</strong> giữa các hệ thống — thay đổi 1 nơi không vỡ nơi khác</li>
-                    <li>Thêm feature mới <strong>không cần sửa code cũ</strong> (Open/Closed principle)</li>
-                    <li>Code <strong>rõ ràng và dễ maintain</strong> so với version monolithic ban đầu</li>
+                    <li>Giảm <strong>coupling</strong> giữa các hệ thống</li>
+                    <li>Thêm feature mới <strong>không cần sửa code cũ</strong></li>
                 </ul>
+                
                 <div class="sec-label" style="margin-top:20px;">Sản Phẩm</div>
                 <ul class="result-list">
-                    <li>link git:<a href="https://github.com/tqt20004/Project-">github.com/tqt20004/Project-</a></li>
-                    <li>Link chơi thử :<a href="https://tqt20004.itch.io/boxhead" > Click Here </a></li>
+                    <li>Link git: <a href="https://github.com/tqt20004/Project-">github.com/tqt20004/Project-</a></li>
+                    <li>Link chơi thử: <a href="https://tqt20004.itch.io/boxhead">Click Here</a></li>
                 </ul>
-            </div>
-        </div>
+            </div> <!-- Đóng project-body -->
+        </div> <!-- Đóng project-card -->
 
         <div class="divider"></div>
 
@@ -422,23 +423,18 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
         <div class="skills-grid">
             <div class="skill-row">
                 <div class="skill-cat">Language</div>
-                <div class="skill-items">
-                    <span class="skill-chip">C#</span>
-                </div>
+                <div class="skill-items"><span class="skill-chip">C#</span></div>
             </div>
             <div class="skill-row">
                 <div class="skill-cat">Engine</div>
-                <div class="skill-items">
-                    <span class="skill-chip">Unity</span>
-                </div>
+                <div class="skill-items"><span class="skill-chip">Unity</span></div>
             </div>
             <div class="skill-row">
-                <div class="skill-cat">Knowlegde</div>
+                <div class="skill-cat">Knowledge</div>
                 <div class="skill-items">
-                    <span class="skill-chip">Basic Design Partern</span>
+                    <span class="skill-chip">Design Patterns</span>
                     <span class="skill-chip">OOP</span>
                     <span class="skill-chip">SOLID</span>
-                    <span class="skill-chip">Intermediate English</span>
                 </div>
             </div>
             <div class="skill-row">
@@ -446,20 +442,6 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
                 <div class="skill-items">
                     <span class="skill-chip">GitHub</span>
                     <span class="skill-chip">Visual Studio</span>
-                    <span class="skill-chip">VS Code</span>
-                </div>
-            </div>
-            <div class="skill-row">
-                <div class="skill-cat">Other Stack</div>
-                <div class="skill-items">
-                    <span class="skill-chip">ASP.NET Core MVC</span>
-                </div>
-            </div>
-            <div class="skill-row">
-                <div class="skill-cat">Soft Skills</div>
-                <div class="skill-items">
-                    <span class="skill-chip">Self-learning</span>
-                    <span class="skill-chip">Problem solving</span>
                 </div>
             </div>
         </div>
@@ -471,45 +453,37 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
         <div class="goal-card">
             <div class="goal-main">
                 Đang tìm kiếm vị trí <strong>Junior / Fresher Unity Developer</strong>.<br />
-                Ưu tiên <strong>môi trường học hỏi</strong> và làm việc với dự án thực tế.<br />
-                Không đặt nặng mức lương — cần <strong>kinh nghiệm thực chiến</strong>.<br />
+                Ưu tiên <strong>môi trường học hỏi</strong> và làm việc thực tế.<br />
                 Chỉ học 2 - 2,5 ngày trên tuần.
             </div>
             <div class="goal-stat">
                 <div class="goal-stat-num">4-5</div>
-                <div class="goal-stat-label">ngày có thể làm / tuần<br />→ sẵn sàng full-time</div>
+                <div class="goal-stat-label">ngày có thể làm / tuần</div>
             </div>
         </div>
 
         <!-- CONTACT -->
         <div class="contact-row">
-            <a class="contact-link" href="https://github.com/tqt20004" target="_blank">
-                <span class="icon">⌥</span> github.com/tqt20004
-            </a>
-
-            <div class="contact-link">
-                <span class="icon">✉</span> thangtu0440@gmail.com
-            </div>
-
-            <div class="contact-link">
-                <span class="icon">☏</span> 0923045530
-            </div>
+            <a class="contact-link" href="https://github.com/tqt20004" target="_blank">⌥ github.com/tqt20004</a>
+            <div class="contact-link">✉ thangtu0440@gmail.com</div>
+            <div class="contact-link">☏ 0923045530</div>
         </div>
-        <script>
-            function copyText(text) {
-                navigator.clipboard.writeText(text);
-                alert("Đã copy: " + text);
-            }
-        </script>
 
-        <script>
-            function toggleProject(header) {
-                const body = document.getElementById('project-body');
-                const btn = document.getElementById('expand-btn');
-                const isOpen = body.classList.contains('open');
-                if (isOpen) { body.classList.remove('open'); btn.textContent = '[ xem chi tiết + ]'; }
-                else { body.classList.add('open'); btn.textContent = '[ thu gọn − ]'; }
+    </div> <!-- KẾT THÚC CONTAINER Ở ĐÂY -->
+
+    <script>
+        function toggleProject(header) {
+            const body = document.getElementById('project-body');
+            const btn = document.getElementById('expand-btn');
+            const isOpen = body.classList.contains('open');
+            if (isOpen) { 
+                body.classList.remove('open'); 
+                btn.textContent = '[ xem chi tiết + ]'; 
+            } else { 
+                body.classList.add('open'); 
+                btn.textContent = '[ thu gọn − ]'; 
             }
-        </script>
+        }
+    </script>
 </body>
 </html>
